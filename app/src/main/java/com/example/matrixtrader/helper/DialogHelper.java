@@ -1,6 +1,9 @@
 package com.example.matrixtrader.helper;
 
 import android.app.ProgressDialog;
+import android.content.res.Resources;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.matrixtrader.R;
 import com.example.matrixtrader.core.BaseActivity;
@@ -32,5 +35,13 @@ public class DialogHelper {
             progressDialog.dismiss();
             progressDialog = null;
         }
+    }
+
+    public void showAlertDialog(String message){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(BaseActivity.currentActivity);
+        dialog.setTitle(BaseActivity.currentActivity.getString(R.string.warning));
+        dialog.setMessage(message);
+        dialog.setPositiveButton(BaseActivity.currentActivity.getString(R.string.ok),null);
+        dialog.show();
     }
 }

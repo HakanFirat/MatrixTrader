@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.matrixtrader.R;
 import com.example.matrixtrader.core.BaseFragment;
+import com.example.matrixtrader.helper.DialogHelper;
 import com.example.matrixtrader.model.LoginResponseModel;
 import com.example.matrixtrader.utils.Constant;
 
@@ -28,7 +30,9 @@ import java.util.HashMap;
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
 
     private LoginViewModel loginViewModel = new LoginViewModel();
-    private Button sendButton;
+    private Button loginButton;
+    private EditText userNameEditText;
+    private EditText passwordEditText;
     private String accountNumber;
 
     @Override
@@ -46,18 +50,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void initViewsOnViewCreated(View view) {
 
-        sendButton = view.findViewById(R.id.sendButton);
-        sendButton.setOnClickListener(this);
-
-        HashMap<String,String> params = new HashMap<>();
-        params.put("MsgType","A");
-        params.put("CustomerNo",String.valueOf(0));
-        params.put("Username","proje");
-        params.put("Password","proje");
-        params.put("AccountID",String.valueOf(0));
-        params.put("ExchangeID",String.valueOf(4));
-        params.put("OutputType",String.valueOf(2));
-        loginViewModel.login(params);
+        userNameEditText = view.findViewById(R.id.userNameEditText);
+        passwordEditText = view.findViewById(R.id.passwordEditText);
+        loginButton = view.findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(this);
     }
 
     private void observeViewModel(){
@@ -66,7 +62,15 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onChanged(LoginResponseModel data) {
                 if (data != null) {
-                    accountNumber = data.getDefaultAccount();
+                    if (data.getResult().isState()){
+                        accountNumber = data.getDefaultAccount();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constant.ACCOUNT_NUMBER_KEY,accountNumber);
+                        navigateTo(R.id.action_fragmentLogin_to_fragmentAccountStatement,bundle);
+                    }
+                    else {
+                        DialogHelper.getInstance().showAlertDialog(data.getResult().getDescription());
+                    }
                 }
             }
         });
@@ -81,8 +85,14 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        Bundle bundle = new Bundle();
-        bundle.putString(Constant.ACCOUNT_NUMBER_KEY,accountNumber);
-        navigateTo(R.id.action_fragmentLogin_to_fragmentAccountStatement,bundle);
+        HashMap<String,String> params = new HashMap<>();
+        params.put("MsgType","A");
+        params.put("CustomerNo",String.valueOf(0));
+        params.put("Username",userNameEditText.getText().toString().trim());
+        params.put("Password",passwordEditText.getText().toString().trim());
+        params.put("AccountID",String.valueOf(0));
+        params.put("ExchangeID",String.valueOf(4));
+        params.put("OutputType",String.valueOf(2));
+        loginViewModel.login(params);
     }
 }

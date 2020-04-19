@@ -8,6 +8,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matrixtrader.helper.DisplayHelper;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     public static BaseActivity currentActivity;
@@ -18,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         currentActivity = this;
-        Log.e("","currentActivity");
+        DisplayHelper.getInstance().changeStatusColor();
     }
 
     @Override
