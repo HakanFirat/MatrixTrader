@@ -19,6 +19,7 @@ import com.example.matrixtrader.R;
 import com.example.matrixtrader.adapter.AccountAdapter;
 import com.example.matrixtrader.core.BaseActivity;
 import com.example.matrixtrader.core.BaseFragment;
+import com.example.matrixtrader.helper.DialogHelper;
 import com.example.matrixtrader.model.AccountResponseModel;
 import com.example.matrixtrader.model.Item;
 import com.example.matrixtrader.ui.login.LoginViewModel;
@@ -48,9 +49,7 @@ public class AccountStatementFragment extends BaseFragment {
         if (getArguments() != null){
             accountNumber = getArguments().getString(Constant.ACCOUNT_NUMBER_KEY);
         }
-        //accountStatementViewModel = new AccountStatementViewModel();
-        accountViewModel = ViewModelProviders.of(this)
-                .get(AccountStatementViewModel.class);
+        accountViewModel = new AccountStatementViewModel();
         observeViewModel();
     }
 
@@ -74,7 +73,14 @@ public class AccountStatementFragment extends BaseFragment {
                 this, new Observer<AccountResponseModel>() {
             @Override
             public void onChanged(AccountResponseModel data) {
-                initRecyclerView(data.getItemlist());
+                if (data != null) {
+                    if (data.getResult().isState()){
+                        initRecyclerView(data.getItemlist());
+                    }
+                    else {
+                        DialogHelper.getInstance().showAlertDialog(data.getResult().getDescription());
+                    }
+                }
             }
         });
 

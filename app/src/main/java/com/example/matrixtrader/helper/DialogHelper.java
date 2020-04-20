@@ -1,7 +1,6 @@
 package com.example.matrixtrader.helper;
 
-import android.app.ProgressDialog;
-import android.content.res.Resources;
+import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -10,7 +9,7 @@ import com.example.matrixtrader.core.BaseActivity;
 
 public class DialogHelper {
     private static DialogHelper dialogHelper;
-    private ProgressDialog progressDialog;
+    private AlertDialog loadingDialog;
 
     public static DialogHelper getInstance(){
         if (dialogHelper == null){
@@ -20,20 +19,20 @@ public class DialogHelper {
     }
 
     public void showLoadingDialog(){
-        if (progressDialog != null && progressDialog.isShowing()){
+        if (loadingDialog != null && loadingDialog.isShowing())
             return;
-        }
-        progressDialog = new ProgressDialog(BaseActivity.currentActivity);
-        progressDialog.setContentView(R.layout.progress_dialog);
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.currentActivity);
+        LayoutInflater inflater = BaseActivity.currentActivity.getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.progress_dialog,null));
+        loadingDialog = builder.create();
+        loadingDialog.show();
     }
 
     public void hideLoadingDialog(){
-        if (progressDialog != null && progressDialog.isShowing()){
-            progressDialog.dismiss();
-            progressDialog = null;
+        if (loadingDialog != null && loadingDialog.isShowing()){
+            loadingDialog.dismiss();
+            loadingDialog = null;
         }
     }
 

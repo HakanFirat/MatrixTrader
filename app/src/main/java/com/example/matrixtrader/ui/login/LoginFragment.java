@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 import com.example.matrixtrader.R;
 import com.example.matrixtrader.core.BaseFragment;
 import com.example.matrixtrader.helper.DialogHelper;
+import com.example.matrixtrader.helper.SharedPrefsHelper;
+import com.example.matrixtrader.helper.ViewHelper;
 import com.example.matrixtrader.model.LoginResponseModel;
 import com.example.matrixtrader.utils.Constant;
 
@@ -43,7 +46,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        loginViewModel = new LoginViewModel();
         observeViewModel();
     }
 
@@ -64,6 +67,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 if (data != null) {
                     if (data.getResult().isState()){
                         accountNumber = data.getDefaultAccount();
+                        SharedPrefsHelper.saveAccountNo(accountNumber);
                         Bundle bundle = new Bundle();
                         bundle.putString(Constant.ACCOUNT_NUMBER_KEY,accountNumber);
                         navigateTo(R.id.action_fragmentLogin_to_fragmentAccountStatement,bundle);
@@ -85,6 +89,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        ViewHelper.instance().hideKeyboard();
         HashMap<String,String> params = new HashMap<>();
         params.put("MsgType","A");
         params.put("CustomerNo",String.valueOf(0));

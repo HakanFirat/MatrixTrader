@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.matrixtrader.R;
+import com.example.matrixtrader.helper.StringHelper;
 import com.example.matrixtrader.model.Item;
 
 import org.w3c.dom.Text;
@@ -80,16 +81,16 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             Item item = itemList.get(position - 1);
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.symbolTextView.setText(item.getSymbol());
-            itemViewHolder.quantityTextView.setText(String.valueOf(item.getQty_T2()));
-            itemViewHolder.priceTextView.setText(String.valueOf(item.getLastPx()));
-            Double x = item.getQty_T2()*item.getLastPx();
-            itemViewHolder.amountTextView.setText(String.valueOf(x));
-            totalAmount +=  x;
+            itemViewHolder.quantityTextView.setText(StringHelper.instance().amountFormat(item.getQty_T2()));
+            itemViewHolder.priceTextView.setText(StringHelper.instance().amountFormat(item.getLastPx()));
+            Double amount = item.getQty_T2()*item.getLastPx();
+            itemViewHolder.amountTextView.setText(StringHelper.instance().amountFormat(amount));
+            totalAmount +=  amount;
         }
 
         if (holder.getItemViewType() == TYPE_TOTAL){
             TotalViewHolder totalViewHolder = (TotalViewHolder) holder;
-            totalViewHolder.totalAmountTextView.setText(String.valueOf(totalAmount));
+            totalViewHolder.totalAmountTextView.setText(StringHelper.instance().amountFormat(totalAmount));
         }
     }
 
