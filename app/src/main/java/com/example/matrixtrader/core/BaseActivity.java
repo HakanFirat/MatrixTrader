@@ -10,15 +10,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.matrixtrader.helper.DisplayHelper;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     public static BaseActivity currentActivity;
+    private Unbinder mUnbinder;
     protected abstract int getLayoutId();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        mUnbinder = ButterKnife.bind(this);
         currentActivity = this;
         DisplayHelper.getInstance().changeStatusColor();
     }
@@ -29,7 +34,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         currentActivity = this;
     }
 
-    public void abc(){
-        Toast.makeText(currentActivity, "BaseActivity", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mUnbinder != null)
+            mUnbinder.unbind();
     }
 }

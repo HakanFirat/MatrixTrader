@@ -27,15 +27,17 @@ import com.example.matrixtrader.utils.Constant;
 
 import java.util.HashMap;
 
+import butterknife.BindView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
 
     private LoginViewModel loginViewModel = new LoginViewModel();
-    private Button loginButton;
-    private EditText userNameEditText;
-    private EditText passwordEditText;
+    @BindView(R.id.loginButton) Button loginButton;
+    @BindView(R.id.userNameEditText) EditText userNameEditText;
+    @BindView(R.id.passwordEditText) EditText passwordEditText;
     private String accountNumber;
 
     @Override
@@ -52,10 +54,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void initViewsOnViewCreated(View view) {
-
-        userNameEditText = view.findViewById(R.id.userNameEditText);
-        passwordEditText = view.findViewById(R.id.passwordEditText);
-        loginButton = view.findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
     }
 

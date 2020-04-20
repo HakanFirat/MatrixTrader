@@ -1,4 +1,4 @@
-package com.example.matrixtrader;
+package com.example.matrixtrader.ui;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.matrixtrader.R;
 import com.example.matrixtrader.core.BaseActivity;
 import com.example.matrixtrader.model.LoginResponseModel;
 import com.example.matrixtrader.ui.login.LoginViewModel;

@@ -24,7 +24,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/black"/>
+            android:background="@color/grey"/>
 
         <TextView
             android:id="@+id/quantityTextView"
@@ -38,7 +38,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/black"/>
+            android:background="@color/grey"/>
 
         <TextView
             android:id="@+id/priceTextView"
@@ -52,7 +52,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/black"/>
+            android:background="@color/grey"/>
 
         <TextView
             android:id="@+id/amountTextView"
@@ -67,6 +67,6 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="@color/black"/>
+        android:background="@color/grey"/>
 
 </LinearLayout>

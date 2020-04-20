@@ -11,4 +11,6 @@
     <color name="bluey_grey">#8b959e</color>
     <color name="pink">#D81B60</color>
     <color name="blue">#1764E3</color>
+    <color name="grey">#b3b8bd</color>
+    <color name="appGrey">#344353</color>
 </resources>

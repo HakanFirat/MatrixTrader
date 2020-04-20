@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.matrixtrader.R;
 import com.example.matrixtrader.adapter.AccountAdapter;
+import com.example.matrixtrader.component.MatrixToolbar;
 import com.example.matrixtrader.core.BaseActivity;
 import com.example.matrixtrader.core.BaseFragment;
 import com.example.matrixtrader.helper.DialogHelper;
@@ -27,6 +28,8 @@ import com.example.matrixtrader.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.

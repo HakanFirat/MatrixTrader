@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
+import butterknife.ButterKnife;
+
 public abstract class BaseFragment extends Fragment {
 
     private View view;
@@ -25,6 +27,7 @@ public abstract class BaseFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(getLayoutId(),container,false);
+        ButterKnife.bind(this, view);
         return view;
     }
 
